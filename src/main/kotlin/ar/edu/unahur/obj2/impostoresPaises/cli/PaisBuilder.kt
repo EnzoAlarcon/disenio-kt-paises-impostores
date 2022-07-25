@@ -2,9 +2,6 @@ package ar.edu.unahur.obj2.impostoresPaises.cli
 
 // builder
 class PaisBuilder {
-
-    var pais  = Pais()
-
     private var nombre: String = "Sin Dato"
     private var codigoIso: String = "Sin Dato"
     private var poblacion: Int = 0
@@ -17,18 +14,31 @@ class PaisBuilder {
     private var idiomas: MutableList<String> = mutableListOf()
 
     // apply cambia la variable y retorna el builder
-    fun setNombre(nombre : String) = apply { pais.nombre = nombre }
-    fun setCodigoIso(codigo : String) = apply { pais.codigoIso = codigo }
-    fun setPoblacion(cantidad : Int) = apply { pais.poblacion = cantidad }
-    fun setSuperficie(cantidad: Int) = apply { pais.superficie = cantidad }
-    fun setContinente(continente: String) = apply { pais.continente = continente }
-    fun setPaisesLimitrofes(paises : MutableList<Pais>) = apply { pais.paisesLimitrofes = paises }
-    fun setBloquesRegionales(bloques : MutableList<String>) = apply { pais.bloquesRegionales = bloques }
-    fun setCodigoMoneda(cod : String) = apply { pais.codigoMoneda = cod }
-    fun setCotizacionDolar(num : Int) = apply { pais.cotizacionDolar = num }
-    fun setIdiomas(idiomas : MutableList<String>) = apply { pais.idiomas = idiomas }
+    fun setNombre(nombre : String) = apply { this.nombre = nombre }
+    fun setCodigoIso(codigo : String) = apply { this.codigoIso = codigo }
+    fun setPoblacion(cantidad : Int) = apply { this.poblacion = cantidad }
+    fun setSuperficie(cantidad: Int) = apply { this.superficie = cantidad }
+    fun setContinente(continente: String) = apply { this.continente = continente }
+    fun setPaisesLimitrofes(paises : MutableList<Pais>) = apply { this.paisesLimitrofes = paises }
+    fun setBloquesRegionales(bloques : MutableList<String>) = apply { this.bloquesRegionales = bloques }
+    fun setCodigoMoneda(cod : String) = apply { this.codigoMoneda = cod }
+    fun setCotizacionDolar(num : Int) = apply { this.cotizacionDolar = num }
+    fun setIdiomas(idiomas : MutableList<String>) = apply { this.idiomas = idiomas }
 
     //Para terminar las llamadas al builder retornamos el objeto Pais
-    fun build() = pais
+    fun build() : Pais {
+        val pais = Pais()
+        pais.nombre = nombre
+        pais.codigoIso = codigoIso
+        pais.poblacion = poblacion
+        pais.superficie = superficie
+        pais.continente = continente
+        pais.paisesLimitrofes = paisesLimitrofes
+        pais.bloquesRegionales = bloquesRegionales
+        pais.codigoMoneda = codigoMoneda
+        pais.cotizacionDolar = cotizacionDolar
+        pais.idiomas = idiomas
+        return pais
+    }
 
 }

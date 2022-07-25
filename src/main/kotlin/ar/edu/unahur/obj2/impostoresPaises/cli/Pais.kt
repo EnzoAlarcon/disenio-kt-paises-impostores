@@ -42,7 +42,6 @@ class Pais {
     fun convieneIrDeCompras(pais: Pais) = cotizacionDolar!! < pais.cotizacionDolar!!
     fun valorLocalDeMoneda(pais: Pais) = cotizacionDolar!! / pais.cotizacionDolar!!
 
-
 }
 
 
