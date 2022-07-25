@@ -1,31 +1,48 @@
 package ar.edu.unahur.obj2.impostoresPaises.cli
 
+
 // Utilizamos patron builder para la creacion del pais
-class Pais (builder : paisBuilder) {
+class Pais {
 
-    var nombre: String? = null
-    var codigoIso: String? = null
-    var poblacion: Int? = null
-    var superficie: Int? = null
-    var continente: String? = null
-    var paisesLimitrofes: List<Pais>? = null
-    var bloquesRegionales: List<String>? = null
-    var codigoMoneda: String? = null
+    var nombre: String = "Sin Dato"
+    var codigoIso: String = "Sin Dato"
+    var poblacion: Int = 0
+    var superficie: Int = 0
+    var continente: String = "Sin Dato"
+    var paisesLimitrofes: MutableList<Pais> = mutableListOf()
+    var bloquesRegionales: MutableList<String> = mutableListOf()
+    var codigoMoneda: String = "Sin Dato"
     var cotizacionDolar: Int? = null
-    var idiomas: List<String>? = null
+    var idiomas: MutableList<String> = mutableListOf()
 
-    init {
-        nombre = builder.getNombre()
-        codigoIso = builder.getCodigoIso()
-        poblacion = builder.getPoblacion()
-        superficie = builder.getSuperficie()
-        continente = builder.getContinente()
-        paisesLimitrofes = builder.getPaisesLimitrofes()
-        bloquesRegionales = builder.getBloquesRegionales()
-        codigoMoneda = builder.getCodigoMoneda()
-        cotizacionDolar = builder.getCotizacionDolar()
-        idiomas = builder.getIdiomas()
+    override fun toString(): String {
+        return this.nombre
     }
+
+    fun addVecino(pais: Pais) {
+        paisesLimitrofes.add(pais)
+    }
+    fun addMutuoVecino(pais: Pais) {
+        this.addVecino(pais)
+        pais.addVecino(this)
+    }
+
+    //ETAPA 1
+
+    fun esPlurinacional() = idiomas.size > 1
+    fun esUnaIsla() = paisesLimitrofes.isEmpty()
+    fun densidadPoblacional() = (poblacion / superficie)
+    fun vecinoMasPoblado() : Pais? = paisesLimitrofes.plus(this).maxByOrNull { p -> p.poblacion }
+
+    fun esLimitrofeDe(pais: Pais) = paisesLimitrofes.contains(pais)
+    fun necesitaTraductor(pais: Pais) = ! idiomas.any(pais.idiomas::contains)
+
+    fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.any(pais.bloquesRegionales::contains)
+    fun potencialesAliados(pais: Pais) = ! this.necesitaTraductor(pais) && this.compartenBloqueRegional(pais)
+    fun convieneIrDeCompras(pais: Pais) = cotizacionDolar!! < pais.cotizacionDolar!!
+    fun valorLocalDeMoneda(pais: Pais) = cotizacionDolar!! / pais.cotizacionDolar!!
+
+
 }
 
 
