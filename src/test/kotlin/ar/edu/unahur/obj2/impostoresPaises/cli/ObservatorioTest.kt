@@ -3,11 +3,8 @@ package ar.edu.unahur.obj2.impostoresPaises.cli
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
-import io.kotest.matchers.booleans.shouldNotBeTrue
-import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.matchers.types.shouldBeTypeOf
 
 class ObservatorioTest: DescribeSpec ({
@@ -49,41 +46,49 @@ class ObservatorioTest: DescribeSpec ({
     uruguay.addMutuoVecino(brasil)
 
     describe("Test de Paises conocidos") {
+        Observatorio.borrarPaises()
+        Observatorio.addPaises(mutableListOf(argentina, brasil, uruguay))
         it ("Comprobar paises conocidos por Observatorio") {
             Observatorio.paises.shouldContainExactly(argentina, brasil, uruguay)
         }
     }
     describe("Test de nombres de paises"){
         it("Comprobar que Argentina retorna el pais indicado") {
+            Observatorio.borrarPaises()
+            Observatorio.addPaises(mutableListOf(argentina, brasil, uruguay))
+            println(Observatorio.paises)
             Observatorio.retornarPais("argentina").shouldBe(argentina)
             Observatorio.retornarPais("argentina").shouldBeTypeOf<Pais>()
         }
     }
     describe("Test Etapa 2") {
+        Observatorio.borrarPaises()
+        Observatorio.addPaises(mutableListOf(argentina, brasil, uruguay))
         it("Argentina y Brasil son limitrofes") {
             Observatorio.sonLimitrofes("argentina", "brasil").shouldBeTrue()
         }
         it("Argentina y Brasil necesitan traduccion") {
-            Observatorio.necesitaTraduccion("argentina", "brasil").shouldNotBeTrue()
+            Observatorio.necesitaTraduccion("argentina", "brasil").shouldBeTrue()
         }
-        describe("Dos paises son potenciales aliados"){
+        describe("Dos paises son potenciales aliados") {
             it("Argentina y Brasil no son potenciales aliados") {
                 Observatorio.sonPotencialesAliados("argentina", "brasil").shouldBeFalse()
             }
-            it("Argentina y Uruguay son potenciales aliados"){
-                Observatorio.sonPotencialesAliados("argentina","uruguay").shouldBeTrue()
+            it("Argentina y Uruguay son potenciales aliados") {
+                Observatorio.sonPotencialesAliados("argentina", "uruguay").shouldBeTrue()
             }
         }
-        it("Conviene ir de compras desde Argentina a Brasil"){
+        it("Conviene ir de compras desde Argentina a Brasil") {
             Observatorio.convieneIrDeCompras("argentina", "brasil").shouldBeFalse()
         }
-        it("Calculo de un monto en moneda local"){
+        it("Calculo de un monto en moneda local") {
             Observatorio.cuantoEquivaleLaMoneda("brasil", "argentina", 100.0).shouldBe(2167)
         }
-        it("Codigos ISO de los 5 paises de mayor poblacion"){
-            Observatorio.codigoISOMayorPoblacion(1).shouldBe(2)
+        it("Codigos ISO del pais de mayor poblacion") {
+            Observatorio.codigoISOMayorPoblacion(1).shouldBe(listOf("BRA"))
         }
-        it("El continente mas plurinacional es America"){
+        it("El continente mas plurinacional es America") {
 
         }
+    }
 })

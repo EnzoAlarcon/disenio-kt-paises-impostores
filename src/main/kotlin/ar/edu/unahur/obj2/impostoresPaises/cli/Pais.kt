@@ -4,8 +4,6 @@ import kotlin.math.roundToInt
 // Utilizamos patron builder para la creacion del pais
 class Pais {
 
-    init { Observatorio.paises.add(this) }
-
     var nombre: String = "Sin Dato"
     var codigoIso: String = "Sin Dato"
     var poblacion: Int = 0
@@ -17,7 +15,7 @@ class Pais {
     var cotizacionDolar: Int? = null
     var idiomas: MutableList<String> = mutableListOf()
 
-    override fun toString() = this.nombre
+
 
     fun addVecino(pais: Pais) = paisesLimitrofes.add(pais)
     fun addMutuoVecino(pais: Pais) {
@@ -38,7 +36,7 @@ class Pais {
     fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.any(pais.bloquesRegionales::contains)
     fun potencialesAliados(pais: Pais) = ! this.necesitaTraductor(pais) && this.compartenBloqueRegional(pais)
     fun convieneIrDeCompras(pais: Pais) = cotizacionDolar!! < pais.cotizacionDolar!!
-    fun valorLocalDeMoneda(pais: Pais, monto: Double) =  ((monto / pais.cotizacionDolar!!)* this.cotizacionDolar!!).roundToInt()
+    fun valorLocalDeMoneda(pais: Pais, monto: Double) =  ((monto / this.cotizacionDolar!!)* pais.cotizacionDolar!!).roundToInt()
 
 }
 
