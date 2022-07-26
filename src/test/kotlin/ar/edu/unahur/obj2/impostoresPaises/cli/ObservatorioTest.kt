@@ -3,8 +3,11 @@ package ar.edu.unahur.obj2.impostoresPaises.cli
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.booleans.shouldNotBeTrue
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.matchers.types.shouldBeTypeOf
 
 class ObservatorioTest: DescribeSpec ({
@@ -31,6 +34,30 @@ class ObservatorioTest: DescribeSpec ({
         .setCotizacionDolar(6)
         .setBloquesRegionales(mutableListOf("UNASUR"))
         .setIdiomas(mutableListOf("Portugues"))
+        .build()
+
+    val haiti = PaisBuilder()
+        .setNombre("Haiti")
+        .setCodigoIso("HTI")
+        .setPoblacion(11325861)
+        .setSuperficie(27755)
+        .setContinente("America Central")
+        .setCodigoMoneda("HTG")
+        .setCotizacionDolar(117)
+        .setBloquesRegionales(mutableListOf("ALBA"))
+        .setIdiomas(mutableListOf("Haitiano", "Francés"))
+        .build()
+
+    val cuba = PaisBuilder()
+        .setNombre("Cuba")
+        .setCodigoIso("CU")
+        .setPoblacion(11326616)
+        .setSuperficie(109884)
+        .setContinente("America Central")
+        .setCodigoMoneda("CUB")
+        .setCotizacionDolar(117)
+        .setBloquesRegionales(mutableListOf("ALBA"))
+        .setIdiomas(mutableListOf("Español"))
         .build()
 
     val uruguay = PaisBuilder()
@@ -79,13 +106,16 @@ class ObservatorioTest: DescribeSpec ({
             Observatorio.convieneIrDeCompras("argentina", "brasil").shouldBeFalse()
         }
         it("Calculo de un monto en moneda local") {
-            Observatorio.cuantoEquivaleLaMoneda("brasil", "argentina", 100.0).shouldBe(2167)
+            Observatorio.cuantoEquivaleLaMoneda("argentina", "brasil", 100.0).shouldBe(5)
         }
-        it("Codigos ISO del pais de mayor poblacion") {
-            Observatorio.codigoISOMayorPoblacion(1).shouldBe(listOf("BRA"))
+        it("Codigos ISO de los 5 paises de mayor poblacion") {
+            Observatorio.codigoISOMayorPoblacion(5).shouldContain(listOf("ARG", "BR"))
         }
-        it("El continente mas plurinacional es America") {
-
+        it("Promedio de poblacion es paises insulares"){
+            Observatorio.promedioPoblacionIslas().shouldBe(11326238)
+        }
+        it("El continente mas plurinacional es America Central"){
+            Observatorio.continenteMasPlurinacional().shouldBe("America Central")
         }
     }
 })

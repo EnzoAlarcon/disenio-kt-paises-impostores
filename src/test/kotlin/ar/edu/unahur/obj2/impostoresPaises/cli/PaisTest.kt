@@ -80,8 +80,8 @@ class PaisTest : DescribeSpec ({
             it("Conviene comprar en brasil") {
                 argentina.convieneIrDeCompras(brasil).shouldBeFalse()
             }
-            it("valor peso") {
-                argentina.valorLocalDeMoneda(brasil, 100.0).shouldBe(2167)
+            it("Valor del peso en la moneda de destino") {
+                argentina.valorLocalDeMoneda(brasil, 100.0).shouldBe(5)
             }
         }
     }

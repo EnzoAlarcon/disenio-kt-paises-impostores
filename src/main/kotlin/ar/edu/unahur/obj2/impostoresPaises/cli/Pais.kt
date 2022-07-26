@@ -15,7 +15,7 @@ class Pais {
     var cotizacionDolar: Int? = null
     var idiomas: MutableList<String> = mutableListOf()
 
-
+    override fun toString() = this.nombre
 
     fun addVecino(pais: Pais) = paisesLimitrofes.add(pais)
     fun addMutuoVecino(pais: Pais) {
@@ -36,7 +36,7 @@ class Pais {
     fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.any(pais.bloquesRegionales::contains)
     fun potencialesAliados(pais: Pais) = ! this.necesitaTraductor(pais) && this.compartenBloqueRegional(pais)
     fun convieneIrDeCompras(pais: Pais) = cotizacionDolar!! < pais.cotizacionDolar!!
-    fun valorLocalDeMoneda(pais: Pais, monto: Double) =  ((monto / this.cotizacionDolar!!)* pais.cotizacionDolar!!).roundToInt()
+    fun valorLocalDeMoneda(pais: Pais, monto: Double) =  ((monto / cotizacionDolar!!)* pais.cotizacionDolar!!).roundToInt()
 
 }
 
