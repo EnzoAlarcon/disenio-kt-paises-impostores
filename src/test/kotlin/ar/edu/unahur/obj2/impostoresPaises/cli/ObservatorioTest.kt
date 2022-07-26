@@ -73,21 +73,21 @@ class ObservatorioTest: DescribeSpec ({
     uruguay.addMutuoVecino(brasil)
 
     describe("Test de Paises conocidos") {
-        Observatorio.reset(mutableListOf(argentina, brasil, uruguay))
+        Observatorio.reset(mutableListOf(argentina, brasil, uruguay, haiti, cuba))
         it ("Comprobar paises conocidos por Observatorio") {
-            Observatorio.paises.shouldContainExactly(argentina, brasil, uruguay)
+            Observatorio.paises.shouldContainExactly(argentina, brasil, uruguay, haiti, cuba)
         }
     }
     describe("Test de nombres de paises"){
         it("Comprobar que Argentina retorna el pais indicado") {
-            Observatorio.reset(mutableListOf(argentina, brasil, uruguay))
+            Observatorio.reset(mutableListOf(argentina, brasil, uruguay, haiti, cuba))
             println(Observatorio.paises)
             Observatorio.retornarPais("argentina").shouldBe(argentina)
             Observatorio.retornarPais("argentina").shouldBeTypeOf<Pais>()
         }
     }
     describe("Test Etapa 2") {
-        Observatorio.reset(mutableListOf(argentina, brasil, uruguay))
+        Observatorio.reset(mutableListOf(argentina, brasil, uruguay, haiti, cuba))
         it("Argentina y Brasil son limitrofes") {
             Observatorio.sonLimitrofes("argentina", "brasil").shouldBeTrue()
         }
@@ -108,8 +108,8 @@ class ObservatorioTest: DescribeSpec ({
         it("Calculo de un monto en moneda local") {
             Observatorio.cuantoEquivaleLaMoneda("argentina", "brasil", 100.0).shouldBe(5)
         }
-        it("Codigos ISO de los 5 paises de mayor poblacion") {
-            Observatorio.codigoISOMayorPoblacion(5).shouldContain(listOf("ARG", "BR"))
+        it("Codigos ISO de los 2 paises de mayor poblacion") {
+            Observatorio.codigoISOMayorPoblacion(2).shouldBe(listOf("BRA", "ARG"))
         }
         it("Promedio de poblacion es paises insulares"){
             Observatorio.promedioPoblacionIslas().shouldBe(11326238)
