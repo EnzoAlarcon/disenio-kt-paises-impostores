@@ -36,6 +36,30 @@ class ObservatorioTest: DescribeSpec ({
         .setIdiomas(mutableListOf("Portugues"))
         .build()
 
+    val haiti = PaisBuilder()
+        .setNombre("Haiti")
+        .setCodigoIso("HTI")
+        .setPoblacion(11325861)
+        .setSuperficie(27755)
+        .setContinente("America Central")
+        .setCodigoMoneda("HTG")
+        .setCotizacionDolar(117)
+        .setBloquesRegionales(mutableListOf("ALBA"))
+        .setIdiomas(mutableListOf("Haitiano", "Francés"))
+        .build()
+
+    val cuba = PaisBuilder()
+        .setNombre("Cuba")
+        .setCodigoIso("CU")
+        .setPoblacion(11326616)
+        .setSuperficie(109884)
+        .setContinente("America Central")
+        .setCodigoMoneda("CUB")
+        .setCotizacionDolar(117)
+        .setBloquesRegionales(mutableListOf("ALBA"))
+        .setIdiomas(mutableListOf("Español"))
+        .build()
+
     val uruguay = PaisBuilder()
         .setNombre("Uruguay")
         .setPoblacion(3000000)
@@ -64,26 +88,30 @@ class ObservatorioTest: DescribeSpec ({
             Observatorio.sonLimitrofes("argentina", "brasil").shouldBeTrue()
         }
         it("Argentina y Brasil necesitan traduccion") {
-            Observatorio.necesitaTraduccion("argentina", "brasil").shouldNotBeTrue()
+            Observatorio.necesitaTraduccion("argentina", "brasil").shouldBeTrue()
         }
-        describe("Dos paises son potenciales aliados"){
+        describe("Dos paises son potenciales aliados") {
             it("Argentina y Brasil no son potenciales aliados") {
                 Observatorio.sonPotencialesAliados("argentina", "brasil").shouldBeFalse()
             }
-            it("Argentina y Uruguay son potenciales aliados"){
-                Observatorio.sonPotencialesAliados("argentina","uruguay").shouldBeTrue()
+            it("Argentina y Uruguay son potenciales aliados") {
+                Observatorio.sonPotencialesAliados("argentina", "uruguay").shouldBeTrue()
             }
         }
-        it("Conviene ir de compras desde Argentina a Brasil"){
+        it("Conviene ir de compras desde Argentina a Brasil") {
             Observatorio.convieneIrDeCompras("argentina", "brasil").shouldBeFalse()
         }
-        it("Calculo de un monto en moneda local"){
-            Observatorio.cuantoEquivaleLaMoneda("brasil", "argentina", 100.0).shouldBe(2167)
+        it("Calculo de un monto en moneda local") {
+            Observatorio.cuantoEquivaleLaMoneda("argentina", "brasil", 100.0).shouldBe(5)
         }
-        it("Codigos ISO de los 5 paises de mayor poblacion"){
-            Observatorio.codigoISOMayorPoblacion(1).shouldBe(2)
+        it("Codigos ISO de los 5 paises de mayor poblacion") {
+            Observatorio.codigoISOMayorPoblacion(5).shouldContain(listOf("ARG", "BR"))
         }
-        it("El continente mas plurinacional es America"){
-
+        it("Promedio de poblacion es paises insulares"){
+            Observatorio.promedioPoblacionIslas().shouldBe(11326238)
         }
+        it("El continente mas plurinacional es America Central"){
+            Observatorio.continenteMasPlurinacional().shouldBe("America Central")
+        }
+    }
 })

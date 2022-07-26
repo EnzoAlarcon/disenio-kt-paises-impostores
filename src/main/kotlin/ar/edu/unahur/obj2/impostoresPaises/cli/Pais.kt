@@ -38,7 +38,7 @@ class Pais {
     fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.any(pais.bloquesRegionales::contains)
     fun potencialesAliados(pais: Pais) = ! this.necesitaTraductor(pais) && this.compartenBloqueRegional(pais)
     fun convieneIrDeCompras(pais: Pais) = cotizacionDolar!! < pais.cotizacionDolar!!
-    fun valorLocalDeMoneda(pais: Pais, monto: Double) =  ((monto / pais.cotizacionDolar!!)* this.cotizacionDolar!!).roundToInt()
+    fun valorLocalDeMoneda(pais: Pais, monto: Double) =  ((monto / cotizacionDolar!!)* pais.cotizacionDolar!!).roundToInt()
 
 }
 
