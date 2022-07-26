@@ -46,24 +46,21 @@ class ObservatorioTest: DescribeSpec ({
     uruguay.addMutuoVecino(brasil)
 
     describe("Test de Paises conocidos") {
-        Observatorio.borrarPaises()
-        Observatorio.addPaises(mutableListOf(argentina, brasil, uruguay))
+        Observatorio.reset(mutableListOf(argentina, brasil, uruguay))
         it ("Comprobar paises conocidos por Observatorio") {
             Observatorio.paises.shouldContainExactly(argentina, brasil, uruguay)
         }
     }
     describe("Test de nombres de paises"){
         it("Comprobar que Argentina retorna el pais indicado") {
-            Observatorio.borrarPaises()
-            Observatorio.addPaises(mutableListOf(argentina, brasil, uruguay))
+            Observatorio.reset(mutableListOf(argentina, brasil, uruguay))
             println(Observatorio.paises)
             Observatorio.retornarPais("argentina").shouldBe(argentina)
             Observatorio.retornarPais("argentina").shouldBeTypeOf<Pais>()
         }
     }
     describe("Test Etapa 2") {
-        Observatorio.borrarPaises()
-        Observatorio.addPaises(mutableListOf(argentina, brasil, uruguay))
+        Observatorio.reset(mutableListOf(argentina, brasil, uruguay))
         it("Argentina y Brasil son limitrofes") {
             Observatorio.sonLimitrofes("argentina", "brasil").shouldBeTrue()
         }
