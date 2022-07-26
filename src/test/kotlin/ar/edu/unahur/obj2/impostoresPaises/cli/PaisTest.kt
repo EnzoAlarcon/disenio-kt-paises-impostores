@@ -1,7 +1,5 @@
-package ar.edu.unahur.obj2.impostoresPaises
+package ar.edu.unahur.obj2.impostoresPaises.cli
 
-import ar.edu.unahur.obj2.impostoresPaises.cli.Pais
-import ar.edu.unahur.obj2.impostoresPaises.cli.PaisBuilder
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -83,7 +81,7 @@ class PaisTest : DescribeSpec ({
                 argentina.convieneIrDeCompras(brasil).shouldBeFalse()
             }
             it("valor peso") {
-                argentina.valorLocalDeMoneda(brasil).shouldBe(21)
+                argentina.valorLocalDeMoneda(brasil, 100.0).shouldBe(2167)
             }
         }
     }
