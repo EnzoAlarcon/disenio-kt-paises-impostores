@@ -1,8 +1,9 @@
 package ar.edu.unahur.obj2.impostoresPaises.cli
 
-
 // Utilizamos patron builder para la creacion del pais
 class Pais {
+
+    init { Observatorio.paises.add(this) }
 
     var nombre: String = "Sin Dato"
     var codigoIso: String = "Sin Dato"
@@ -15,13 +16,9 @@ class Pais {
     var cotizacionDolar: Int? = null
     var idiomas: MutableList<String> = mutableListOf()
 
-    override fun toString(): String {
-        return this.nombre
-    }
+    override fun toString() = this.nombre
 
-    fun addVecino(pais: Pais) {
-        paisesLimitrofes.add(pais)
-    }
+    fun addVecino(pais: Pais) = paisesLimitrofes.add(pais)
     fun addMutuoVecino(pais: Pais) {
         this.addVecino(pais)
         pais.addVecino(this)
