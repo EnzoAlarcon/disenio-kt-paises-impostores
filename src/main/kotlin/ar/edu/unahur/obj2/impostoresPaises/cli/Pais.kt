@@ -4,6 +4,10 @@ import kotlin.math.roundToInt
 // Utilizamos patron builder para la creacion del pais
 class Pais {
 
+    init {
+        Observatorio.paises.add(this)
+    }
+
     var nombre: String = "Sin Dato"
     var codigoIso: String = "Sin Dato"
     var poblacion: Int = 0

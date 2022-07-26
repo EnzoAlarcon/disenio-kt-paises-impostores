@@ -9,9 +9,8 @@ object Observatorio {
         return paises.find { it.nombre.equals(nombre, ignoreCase = true) }
     }
 
-    fun reset(listaPaises: MutableList<Pais>) {
+    fun reset() {
         paises = mutableSetOf()
-        paises.addAll(listaPaises)
     }
 
     fun sonLimitrofes(pais1 : String, pais2 : String) = retornarPais(pais1)!!.esLimitrofeDe(retornarPais(pais2)!!)

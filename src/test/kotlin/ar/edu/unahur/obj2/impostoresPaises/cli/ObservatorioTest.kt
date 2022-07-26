@@ -9,6 +9,8 @@ import io.kotest.matchers.types.shouldBeTypeOf
 
 class ObservatorioTest: DescribeSpec ({
 
+    Observatorio.reset()
+
     val argentina = PaisBuilder()
         .setNombre("Argentina")
         .setCodigoIso("ARG")
@@ -31,6 +33,14 @@ class ObservatorioTest: DescribeSpec ({
         .setCotizacionDolar(6)
         .setBloquesRegionales(mutableListOf("UNASUR"))
         .setIdiomas(mutableListOf("Portugues"))
+        .build()
+
+    val uruguay = PaisBuilder()
+        .setNombre("Uruguay")
+        .setPoblacion(3000000)
+        .setContinente("America")
+        .setBloquesRegionales(mutableListOf("UNASUR"))
+        .setIdiomas(mutableListOf("Español"))
         .build()
 
     val haiti = PaisBuilder()
@@ -57,19 +67,10 @@ class ObservatorioTest: DescribeSpec ({
         .setIdiomas(mutableListOf("Español"))
         .build()
 
-    val uruguay = PaisBuilder()
-        .setNombre("Uruguay")
-        .setPoblacion(3000000)
-        .setContinente("America")
-        .setBloquesRegionales(mutableListOf("UNASUR"))
-        .setIdiomas(mutableListOf("Español"))
-        .build()
 
     argentina.addMutuoVecino(brasil)
     argentina.addMutuoVecino(uruguay)
     uruguay.addMutuoVecino(brasil)
-
-    Observatorio.reset(mutableListOf(argentina, brasil, uruguay, haiti, cuba))
 
     describe("Test de Paises conocidos") {
         it ("Comprobar paises conocidos por Observatorio") {
